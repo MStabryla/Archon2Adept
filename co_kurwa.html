@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+↵<html>
+↵<head>
+↵    <meta name="viewport" content="width=device-width" />
+↵    <meta charset="utf-8"/>
+↵    <link href="/css/Zero.css" rel="stylesheet" />
+↵    <link href="/css/GridSheet.css" rel="stylesheet" />
+↵    <link href="https://fonts.googleapis.com/css?family=Sarala" rel="stylesheet">
+↵    <link href="/css/Main.css" rel="stylesheet" />
+↵    <link href="/css/mobile.less" rel="stylesheet/less" type="text/css"/>
+↵    <link href="/css/Common.less" rel="stylesheet/less" type="text/css"/>
+↵    <link type="image/x-icon" href="/img/car_wheel-512.png" rel="icon" />
+↵    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+↵    <script src="/Scripts/GridSheet.js"></script>
+↵    <script src="/Scripts/Libs.js"></script>
+↵    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.3.1/less.min.js"></script>
+        <style>ul{}</style>
+↵    <title></title>
+↵</head>
+↵<body>
+↵    <header class="main-header" id="Header" >
+↵        <span class="logo" id="Header-Logo" style="top:10px;"><a href="/">MotorFunSite</a></span>
+↵        <div class="container container-small" id="Header-Container" style="background-color:inherit;padding:10px 0;">
+↵                
+↵<div id="Nav-Container" style="background-color:inherit;">
+↵    <div class="nav-elem block-2">
+↵
+↵    </div>
+↵        <div class="nav-elem block-2">
+↵            <a href="/o-nas/">O nas</a>
+↵        </div>
+↵        <div class="nav-elem block-2">
+↵            <a href="/blog/">Blog</a>
+↵        </div>
+↵        <div class="nav-elem block-2">
+↵            <a href="/pasja/">Pasja</a>
+↵        </div>
+↵        <div class="nav-elem block-2">
+↵            <a href="/naprawy/">Naprawy</a>
+↵        </div>
+↵    <div class="nav-other" id="Nav-Other" style="display:block">
+↵        <img class="images" style="margin:0 auto;" src="/img/list.ico" />
+↵        <div class="nav-other-con" id="Nav-Other-Con">
+↵                    <div class="nav-other-elem">
+↵                        <a href="/kontakt/">Kontakt</a>
+↵                    </div>
+↵                    <div class="nav-other-elem">
+↵                        <a href="/pomoc/">Pomoc</a>
+↵                    </div>
+↵                    <div class="nav-other-elem">
+↵                        <a href="/sklep/">Sklep</a>
+↵                    </div>
+↵        </div>
+↵    </div>
+↵    <script>
+↵        document.getElementById("Nav-Other").addEventListener("click", function () {
+↵            var navcon = this.children[1];
+↵            if (!(this.getAttribute("showed") == "true")) {
+↵                navcon.style.display = "block";
+↵                this.setAttribute("showed", true);
+↵            }
+↵            else {
+↵                navcon.style.display = "none";
+↵                this.setAttribute("showed", false);
+↵            }
+↵        })
+↵        function ChangeNav() {
+↵            var elems = document.querySelectorAll(".nav-elem");
+↵            var elemso = document.querySelectorAll(".nav-other-elem");
+↵            var sum = elems.length + elemso.length;
+↵            if (window.innerWidth > 770 && elems.length < (5 > sum ? sum : 5)) {
+↵                var temelem = elemso[elemso.length - 1];
+↵                temelem.setAttribute("class", "nav-elem block-2");
+↵                temelem.style.width = "";
+↵                elems = document.querySelectorAll(".nav-elem");
+↵                document.getElementById("Nav-Other").style.width = "";
+↵                for (var j = 0; j < elems.length; j++) {
+↵                    elems[j].setAttribute("class", "nav-elem block-2");
+↵                    elems[j].style.width = "";
+↵                }
+↵                document.getElementById("Nav-Other-Con").removeChild(temelem);
+↵                document.getElementById("Nav-Container").appendChild(temelem);
+↵                if (7 < 5)
+↵                {
+↵                    document.getElementById("Nav-Other").style.display = "none";
+↵                }
+↵            }
+↵            if (window.innerWidth < 770 && window.innerWidth > 445 && elems.length > (4 > sum ? sum : 4)) {
+↵                var temelem = elems[elems.length - 1];
+↵                temelem.setAttribute("class", "nav-other-elem");
+↵                temelem.style.width = "";
+↵                elems = document.querySelectorAll(".nav-elem");
+↵                var persent = 100 / elems.length;
+↵                document.getElementById("Nav-Other").style.width = "calc((" + persent + "% - (155px * 0.01 *" + persent+" ) - 20px)";
+↵                for (var j = 0; j < elems.length; j++) {
+↵                    elems[j].setAttribute("class", "nav-elem block-2");
+↵                    elems[j].style.width = "calc((" + persent + "% - (155px * 0.01 *" + persent + " ) - 20px)";
+↵                }
+↵                document.getElementById("Nav-Container").removeChild(temelem);
+↵                document.getElementById("Nav-Other-Con").appendChild(temelem);
+↵                document.getElementById("Nav-Other").style.display = "block";
+↵         …K8zbyb-LjsEqjsL5eJGXMkVaFkjNmbBl8hsPAXpC8ljYdaIRjHwD3XbKIvl-O2igDh9lQzDIyR5sl0KlRb01" />
+↵                <div class="form-elem-hor">
+↵                    <label for="ProductName">ProductName</label>
+↵                    <input class="text-box single-line" id="ProductName" name="ProductName" type="text" value="Tester" />
+↵                </div>
+↵                <div class="form-elem-hor">
+↵                    <label for="ProductPrice">ProductPrice</label>
+↵                    <input class="text-box single-line" id="ProductPrice" name="ProductPrice" type="text" value="941056.00" />
+↵                </div>
+↵                <div class="form-elem-hor">
+↵                    <label for="Description">Description</label>
+↵                    <input class="text-box single-line" id="Description" name="Description" type="text" value="Test text Lorem Ipsum xddd" />
+↵                </div>
+↵                <input id="Id" name="Id" type="hidden" value="4" />
+↵            </div>
+↵        </div>
+↵        <input type="submit" value="Zatwierdź" />
+↵        <div class="form-message">
+↵            <div id="Message" class="form-error" style="display:none"></div>
+↵            
+↵        </div>
+↵<input name='ufprt' type='hidden' value='45EEF389BBD2A0EB7B4A1C6A45B524112BBC5DDB558F18000B07ADDCCE915C803B224F6F30F686FA72872ADE52108553D4BB3A099D089AE41BF6FE57FD6F11A704732D10F040839F0B787E6F5A3FD9CCC9AF99A499173F9B060E2A5DECF1E699DC89F7FE3AB5C1C412190F071722413F712A84088FE670248EFC35B8A49AD1722DAE340BBF1EC45BCC15320094568D03' /></form></div>
+↵<script>
+↵    var form = document.getElementById("EditProduct");
+↵    HandleFormSubmit(form, function (data) {
+↵        var mess = document.getElementById("Message");
+↵        if (data.Completed)
+↵        {
+↵            mess.style.backgroundColor = "green";
+↵        }
+↵        else
+↵        {
+↵            mess.style.backgroundColor = "red";
+↵        }
+↵        mess.innerText = data.Message;
+↵    })
+↵</script>
+↵
+↵    </section>
+↵    <footer class="main-footer">
+↵            
+↵<section class="container container-small footer-content">
+↵        <div class="block-4">
+↵            <h3 class="footer-h3">Naprawy</h3>
+↵            <ul class="footer-ul">
+↵                    <li class="footer-li"><a class="footer-a" href="/naprawy/usługi-naprawcze/">Usługi Naprawcze</a></li>
+↵            </ul>
+↵        </div>
+↵        <div class="block-4">
+↵            <h3 class="footer-h3">Pasja</h3>
+↵            <ul class="footer-ul">
+↵            </ul>
+↵        </div>
+↵        <div class="block-4">
+↵            <h3 class="footer-h3">Blog</h3>
+↵            <ul class="footer-ul">
+↵            </ul>
+↵        </div>
+↵</section>
+↵<span class="footer-sign">Copyright&#39;s belongs to Morteniusz    <a href="/umbraco">Zaloguj</a></span>
+↵        
+↵    </footer>
+↵    <script>
+↵        document.body.onscroll = function () {
+↵            
+↵            var started = false;
+↵            var int;
+↵            if (document.body.scrollTop != 0 && !started)
+↵            {
+↵                int = setInterval(function () {
+↵                    started = true;
+↵                    if (!SmallHeader())
+↵                    {
+↵                        started = false;
+↵                        clearInterval(int);
+↵                    }
+↵                },5)
+↵            }
+↵            else if (!started) {
+↵                
+↵                int = setInterval(function () {
+↵                    if (!BigHeader()) {
+↵                        clearInterval(int);
+↵                    }
+↵                }, 5)
+↵            }
+↵        }
+↵        function SmallHeader() {
+↵            var logo = document.getElementById("Header-Logo");
+↵            var con = document.getElementById("Header-Container");
+↵            if (logo.style.top != "0px")
+↵            {
+↵                logo.style.top = (parseInt(logo.style.top.replace("px", "")) - 1) + "px";
+↵                con.style.padding = (parseInt(con.style.padding.replace("px 0", "")) - 1) + "px 0";
+↵                return true;
+↵            }
+↵            else {
+↵                return false;
+↵            }
+↵        }
+↵        function BigHeader() {
+↵            var logo = document.getElementById("Header-Logo");
+↵            var con = document.getElementById("Header-Container");
+↵            if (logo.style.top != "10px") {
+↵                logo.style.top = (parseInt(logo.style.top.replace("px", "")) + 1) + "px";
+↵                con.style.padding = (parseInt(con.style.padding.replace("px 0", "")) + 1) + "px 0";
+↵                return true;
+↵            }
+↵            else {
+↵                return false;
+↵            }
+↵        }
+↵    </script>
+↵
+↵<!-- Visual Studio Browser Link -->
+↵<script type="application/json" id="__browserLink_initializationData">
+↵    {"appName":"Chrome","requestId":"a6e45d57c77b46aa8334e53f6ae9995b"}
+↵</script>
+↵<script type="text/javascript" src="http://localhost:53023/29cd022215f94ab7b8e493e020fbc00a/browserLink" async="async"></script>
+↵<!-- End Browser Link -->
+↵
+↵</body>
+↵</html>

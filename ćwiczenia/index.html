@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Test Driver 2d</title>
+        <script src="Drivers.js"></script>
+        <style>
+            body{
+                margin:0;
+                padding:0;
+            }
+            canvas{
+                position: fixed;
+                width:100vw;
+                height: 100vh;
+                top:0;
+            }
+            #Images{
+                display:none;
+                z-index:1;
+            }
+            #Fps{
+                display:block;
+                position:fixed;
+                bottom:0;
+                right:15px;
+                font-size:25px;
+                color:black;
+                z-index: 4;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="Fps"></div>
+        <canvas id="Main"></canvas>
+        <div id="Images">
+            <img id="Test" src="picture.png"/>
+        </div>
+        <script>
+            var Driver;
+            var Data ={
+                st37:false,
+                st38:false,
+                st39:false,
+                st40:false
+            }
+            document.body.onload = function(){
+                document.getElementById("Main").setAttribute("width",window.innerWidth)
+                document.getElementById("Main").setAttribute("height",window.innerHeight)
+                Driver = new MyDriver.Driver2d();
+                Driver.RenderCanvas(document.getElementById("Main"));
+                var testcircle = new MyDriver.Object("shape",{shapeType:"circle",radius:50,color:0xff0000});
+                testcircle.Position.Set(165,145);
+                var testsquare = new MyDriver.Object("shape",{shapeType:"square",side:30,color:0x00ff00});
+                testsquare.Position.Set(25,235);
+                var testimage = new MyDriver.Object("image",{image:document.getElementById("Test")});
+                testimage.Position.Set(260,340);
+                Driver.Scene.AddToScene(testsquare);
+                Driver.Scene.AddToScene(testcircle);
+                Driver.Scene.AddToScene(testimage);
+                var fps = 0;
+                //setInterval(function(){ testsquare.Position = new MyDriver.Vector(parseInt(Math.random()*250),parseInt(Math.random()*250))},100)
+                setInterval(function(){document.getElementById("Fps").innerText = fps;fps=0},1000);
+                function Anim(){
+                    fps++;
+                    if(Data.st37)
+                    {
+                        Driver.Scene.Camera.Vector.x -= 6;
+                    }
+                    if(Data.st38)
+                    {
+                        Driver.Scene.Camera.Vector.y -= 6;
+                    }
+                    if(Data.st39)
+                    {
+                        Driver.Scene.Camera.Vector.x += 6;
+                    }
+                    if(Data.st40)
+                    {
+                        Driver.Scene.Camera.Vector.y += 6;
+                    }
+                    //Driver.Scene.Camera.SetToObject(testimage);
+                    testimage.Rotation += 0.01;
+                    Driver.RenderScene();
+                    requestAnimationFrame(Anim);
+                }
+                Anim();
+                document.body.onkeydown = function(e){
+                    if(e.keyCode > 36 && e.keyCode < 41)
+                    {
+                        eval("Data.st"+e.keyCode + " = true");
+                    }
+                }
+                document.body.onkeyup = function(e){
+                    if(e.keyCode > 36 && e.keyCode < 41)
+                    {
+                        eval("Data.st"+e.keyCode + " = false");
+                    }
+                }
+            }
+            
+        </script>
+    </body>
+</html>

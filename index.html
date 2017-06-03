@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Archo II : Adept</title>
+        <script src="libs/MyLibrary.js"></script>
+        <script src="Drivers.js"></script>
+        <script src="js/Game.js"></script>
+        <script src="js/Field.js"></script>
+        <script src="js/Player.js"></script>
+        <script src="js/GameData.js"></script>
+        <script src="js/Data.js"></script>
+        <script src="js/Unit.js"></script>
+        <script src="js/Spells.js"></script>
+        <script src="js/Interface.js"></script>
+        <script src="js/PowerFields.js"></script>
+        <script src="js/Fight.js"></script>
+        <script src="js/Input.js"></script>
+        <style>
+            @font-face {
+                font-family: "Amiga";
+                src: url("font/amiga4everpro.ttf") format("truetype");
+            }
+            body{
+                margin:0;
+                padding:0;
+            }
+            canvas{
+                position: fixed;
+                width:100vw;
+                height: 100vh;
+                top:0;
+            }
+            #Images{
+                display:none;
+                z-index:1;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="Display">
+            
+        </canvas>
+        <div id="Images">
+            <img src="img/water.png" id="Water" alt="err"/>
+            <img src="img/fire_0.png" id="Fire" alt="err"/>
+            <img src="img/ground.png" id="Ground" alt="err"/>
+            <img src="img/air.png" id="Air" alt="err"/>
+            <img src="img/null.png" id="Null" alt="err"/>
+            <img src="img/adept_c_1.png" id="C_Adept_1" alt="err">
+            <img src="img/adept_c_2.png" id="C_Adept_2" alt="err">
+            <img src="img/adept_c_3.png" id="C_Adept_3" alt="err">
+            <img src="img/adept_c_4.png" id="C_Adept_4" alt="err">
+            <img src="img/adept_p_1.png" id="P_Adept_1" alt="err">
+            <img src="img/adept_p_2.png" id="P_Adept_2" alt="err">
+            <img src="img/adept_p_3.png" id="P_Adept_3" alt="err">
+            <img src="img/adept_p_4.png" id="P_Adept_4" alt="err">
+            <img src="img/behemot.png" id="C_Behemot" alt="err">
+            <img src="img/chimeta_c.png" id="C_Chime" alt="err">
+            <img src="img/chimeta_p.png" id="P_Chime" alt="err">
+            <img src="img/firebird.png" id="C_Firebird" alt="err">
+            <img src="img/gigant.png" id="P_Gigant" alt="err">
+            <img src="img/gorgona_c.png" id="C_Gorgona" alt="err">
+            <img src="img/gorgona_p.png" id="P_Gorgona" alt="err">
+            <img src="img/ifryt.png" id="C_Ifryt" alt="err">
+            <img src="img/juggemut_c.png" id="C_Juggemut" alt="err">
+            <img src="img/juggemut_p.png" id="P_Juggemut" alt="err">
+            <img src="img/kraken.png" id="P_Kraken" alt="err">
+            <img src="img/salamandra.png" id="P_Salamandra" alt="err">
+            <img src="img/syrena.png" id="C_Syrena" alt="err">
+            <img src="img/thunderbird.png" id="P_Thunder" alt="err">
+            <img src="img/widmo_c.png" id="C_Widmo" alt="err">
+            <img src="img/widmo_p.png" id="P_Widmo" alt="err">
+        </div>
+        <script>
+            var Driver;
+            document.body.onload = function(){
+                document.getElementById("Display").setAttribute("width",window.innerWidth)
+                document.getElementById("Display").setAttribute("height",window.innerHeight)
+                Driver = new MyDriver.Driver2d();
+                Driver.RenderCanvas(document.getElementById("Display"));
+                document.getElementById("Display").style.backgroundColor = "#000000";
+
+                InitGame();
+
+                document.body.onresize = function(){
+                    document.getElementById("Display").setAttribute("width",window.innerWidth)
+                    document.getElementById("Display").setAttribute("height",window.innerHeight)
+                    Driver.RenderCanvas(document.getElementById("Display"));
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <canvas id="Main" style="border:1px solid black;width:100vw;height:100vh;">
+
+        </canvas>
+        <script>
+            var obj = {name:"m",Children:[]};
+            obj.Children.push({name:"1",Children:[],parent:obj});
+            obj.Children[0].Children.push({name:"1.1",Children:[],parent:obj.Children[0]});
+            obj.Children[0].Children.push({name:"1.2",Children:[],parent:obj.Children[0]});
+            obj.Children.push({name:"2",Children:[],parent:obj});
+            function Gen(par)
+            {
+                if(!par.gen)
+                {
+                    //wykonanie rekurencyjne
+                    console.log(par.name);
+                    par.gen = true;
+                }
+                if(par.Children.length > 0)
+                {
+                    var x = par.Children.shift()
+                    console.log("Tester : ",x);
+                    Gen(x);
+                }
+                else if(par.parent)
+                {
+                    var x = par.parent
+                    console.log("Tester : ",x);
+                    Gen(par.parent);
+                }
+            }
+            Gen(obj);
+
+            var ctx = document.getElementById("Main").getContext("2d");
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.strokeStyle = "red";
+            ctx.moveTo(100,100);
+            ctx.lineTo(100,200);
+            ctx.lineTo(200,200);
+            ctx.lineTo(200,100);
+            ctx.lineTo(100,100);
+            //ctx.stroke();
+            //ctx.closePath();
+            //ctx.beginPath();
+            ctx.strokeStyle = "blue";
+            ctx.lineTo(0,100);
+            ctx.lineTo(0,200);
+            ctx.stroke();
+        </script>
+    </body>
+</html>
