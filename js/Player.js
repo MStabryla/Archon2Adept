@@ -24,8 +24,29 @@ function _Player(params)
     this.Cursor.FieldPosition = {x:this.CentralPosition.x-1,y:this.CentralPosition.y-1};
     this.Cursor.Position.Set(GameData.Map[this.CentralPosition.y-1][this.CentralPosition.x-1].Position.x,GameData.Map[this.CentralPosition.y-1][this.CentralPosition.x-1].Position.y);
     this.Units = [];
+    this.Units.RemoveAt = function(i)
+    {
+        if(i < this.length)
+        {
+            RemoveFromArray(i,this);
+        }
+    }
+    this.Units.Remove = function()
+    {
+        for(var x=0;x<=arguments.length;x++)
+        {
+            for(var i=0;i<this.length;i++)
+            {
+                if(arguments[x] == this[i])
+                {
+                    RemoveFromArray(i,this);
+                    return;
+                }
+            }
+        }
+    }
     this.SelectUnits = [];
-    var but = this.side == "chaos" ? {up:38,down:40,left:37,right:39,action:13} : {up:87,down:83,left:65,right:68,action:16};
+    var but = this.side == "chaos" ? {up:38,down:40,left:37,right:39,action:13} : {up:87,down:83,left:65,right:68,action:32};
     this.Input = new _Input({type:Controller,button:but})
     this.DefaultMove = function(main)
     {
@@ -106,15 +127,18 @@ function _Player(params)
         },1)
         that.EndTurn = function()
         {
-            that.Cursor.visible = false;
-            that.ManaObject.visible = false;
-            for(var i=0;i<that.SelectUnits.length;i++)
-            {
-                that.SelectUnits[i].model.visible = false;
+            if(GameData.notEnded){
+                that.Cursor.visible = false;
+                that.ManaObject.visible = false;
+                for(var i=0;i<that.SelectUnits.length;i++)
+                {
+                    that.SelectUnits[i].model.visible = false;
+                }
+                that.Input.StopHandle();
+                clearInterval(inter);
+                GameData.ChangePlayer();
             }
-            that.Input.StopHandle();
-            clearInterval(inter);
-            GameData.ChangePlayer();
+            
         }
     }
 }

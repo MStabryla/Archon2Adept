@@ -18,16 +18,18 @@ var Spells = {
                 Driver.Scene.AddToScene(indicator);
                 indicator.Position.y = Data.playfieldHeight*1.25-player.Mana*2+GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit.cost*2;
                 GameData.ActPlayer.Input.actions.up = function(){
+                    if(player.Cursor.FieldPosition.y > 0)
+                          player.Cursor.FieldPosition.y-=1;
                     indicator.Position.y = Data.playfieldHeight*1.25-player.Mana*2+GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit.cost*2;
                     GameData.SecondCom.Send(GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit.name.toUpperCase());
-                    if(player.Cursor.FieldPosition.y > 0)
-                                player.Cursor.FieldPosition.y-=1;
+                    
                 }
                 GameData.ActPlayer.Input.actions.down = function(){
-                    indicator.Position.y = Data.playfieldHeight*1.25-player.Mana*2+GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit.cost*2;
-                    GameData.SecondCom.Send(GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit.name.toUpperCase());
                     if(player.Cursor.FieldPosition.y < 7)
                                 player.Cursor.FieldPosition.y+=1;
+                    indicator.Position.y = Data.playfieldHeight*1.25-player.Mana*2+GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit.cost*2;
+                    GameData.SecondCom.Send(GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit.name.toUpperCase());
+                    
                 }
                 GameData.ActPlayer.Input.actions.action = function(){
                     var choiseUnit = GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit;
@@ -55,9 +57,53 @@ var Spells = {
             var player = GameData.ActPlayer;
             var actUnit = GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit;
             player.DefaultMove(function(){
-                actUnit.ChangePosition({x:player.Cursor.FieldPosition.x,y:player.Cursor.FieldPosition.y});
-                player.EndTurn();
+                if(GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit != null && !GameData.ActPlayer.Units.find(e => e == GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit))
+                {
+                    player.Input.StopHandle();
+                    GameData.BattleField.StartFight({actUnit:actUnit,secUnit:GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit,position:{x:player.Cursor.FieldPosition.x,y:player.Cursor.FieldPosition.y}});
+                }
+                else if(!GameData.ActPlayer.Units.find(e => e == GameData.Map[player.Cursor.FieldPosition.y][player.Cursor.FieldPosition.x].content.ActualUnit))
+                {
+                    actUnit.ChangePosition({x:player.Cursor.FieldPosition.x,y:player.Cursor.FieldPosition.y});
+                    player.EndTurn();
+                }
             })
-        }}
+        }},
+        {
+            name:"RAGNAROCK",
+            using:function(){
+                var firstPlayer = GameData.Player1;
+                var secPlayer = GameData.Player2;
+                var fpUnit = new _Unit({type:"P_Adept_2",position:{x:firstPlayer.CentralPosition.x,y:firstPlayer.CentralPosition.y},owner:GameData.Player1,health:GameData.Player1.Mana});
+                fpUnit.model.Scale = 1.4;
+                Driver.Scene.AddToScene(fpUnit.model);
+                var spUnit = new _Unit({type:"C_Adept_2",position:{x:secPlayer.CentralPosition.x,y:secPlayer.CentralPosition.y},owner:GameData.Player2,health:GameData.Player1.Mana});
+                spUnit.model.Scale = 1.4;
+                Driver.Scene.AddToScene(spUnit.model);
+                GameData.ActPlayer.Input.StopHandle();
+                GameData.BattleField.StartFight({actUnit:fpUnit,secUnit:spUnit,position:{x:9,y:4}});
+                var iter = setInterval(function(){
+                    if(spUnit.health <= 0 || fpUnit.health <= 0)
+                    {
+                        GameData.notEnded = false;
+                        if(spUnit.health <= 0)
+                        {
+                            GameData.Communicator.Send("THE GAME IS ENDED ...");
+                            GameData.SecondCom.Send("ORDER WINS");
+                        }
+                        else if(fpUnit.health <= 0)
+                        {
+                            GameData.Communicator.Send("THE GAME IS ENDED ...");
+                            GameData.SecondCom.Send("CHAOS WINS");
+                        }
+                        GameData.ActPlayer.StopHandle();
+                        GameData.ChangePlayer = function(){
+                            console.log("nope");
+                        }
+                        clearInterval(iter);
+                    }
+                },10);
+            }
+        }
     ]
 }
